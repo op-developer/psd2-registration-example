@@ -4,7 +4,7 @@ This module contains Java code for
 1. Generating Certificates for MTLS and JWT Signing and 
 2. Registering to OP's PSD2 Sandbox.
 
-For information on the details, see the source code and the [TPP setup page](https://op-developer.fi/p/tpp-setup).
+For information on the details, see the source code and the [TPP setup page](https://op-developer.fi/p/psd2-tpp-setup).
 
 ## Pre-requisities
 
