@@ -20,7 +20,7 @@ For information on the details, see the source code and the [TPP setup page](htt
 | tpp.registration.register.url | URI of the registration service. Only change this if you know the service URI has changed. | https://mtls-apis.psd2-sandbox.op.fi/tpp-registration/register |
 | tpp.client.cert.generation.url | URI of the certificate generation service (incl. query marker "?"). Only change this value if you know the URI has changed. | https://sandbox.apis.op-palvelut.fi/oop-test-client-certs-psd2/v1/client-cert? |
 | tpp.ssa.software.redirect.uris | The redirect URIs you want to register for your application. A comma-separated list of redirect URIs. These URIs do not have to match the values you may have provided on OP Developer. | https://localhost:8181,https://localhost:8080 |
-| tpp.ssa.software.roles | PSD2 license roles available to you. A comma-separated list of roles. In sandbox, you man choose whichever roles you like. | AIS,PIS,CPBII |
+| tpp.ssa.software.roles | PSD2 license roles available to you. A comma-separated list of roles. In sandbox, you man choose whichever roles you like. | AIS,PIS,CBPII |
 | tpp.ssa.software.client | Name of your software client. Choose this as you wish. | Banklify.io |
 | tpp.ssa.software.client.uri | Home domain of your software client. | https://example.com |
 | tpp.api.key | API key of your client app. Obtained from OP Developer after client app registration. | fejw019ghawbv78oatuio |
