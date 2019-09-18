@@ -72,7 +72,6 @@ public class SandboxRegistrator {
                 .accept(ContentType.JSON)
                 .header("Content-Type", "application/jwt")
                 .header("x-api-key", this.tppApiKey)
-                .header("x-fapi-financial-id", "test")
                 .body(registrationRequest)
                 .when().post(env.getTppRegistrationRegisterUrl());
         response.then().log().all().assertThat().statusCode(201);
@@ -101,7 +100,7 @@ public class SandboxRegistrator {
                 .accept(ContentType.JSON)
                 .header("x-api-key", this.tppApiKey)
                 .when().post(env.getTppClientCertGenerationUrl()
-                        + "c=FI"
+                        + "?c=FI"
                         + "&cn=SANDBOX" + this.env.getTppCn());
         response.then().log().all().assertThat().statusCode(201);
         System.out.println("cert generation time: " + response.getTimeIn(TimeUnit.MILLISECONDS));
