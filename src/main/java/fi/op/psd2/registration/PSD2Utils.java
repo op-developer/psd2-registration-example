@@ -27,11 +27,12 @@ public class PSD2Utils {
         return stringWriter.toString();
     }
 
-    public static String generateSignedSSAJwt(EnvironmentConfig env, String tppId, String clientId, ECPrivateKey generatedECPrivateKey, String kid, String publicJwksUrl) throws Throwable {
+    public static String generateSignedSSAJwt(EnvironmentConfig env, String tppId, String clientId, String clientName,
+            ECPrivateKey generatedECPrivateKey, String kid, String publicJwksUrl) throws Throwable {
 
         final JWSSigner ssaSigner = new ECDSASigner(generatedECPrivateKey, Curve.P_256);
         JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.ES256).type(JOSEObjectType.JWT).keyID(kid).build();
-        final var ssaJson = createSoftwareStatement(tppId, clientId, publicJwksUrl, env);
+        final var ssaJson = createSoftwareStatement(tppId, clientId, clientName, publicJwksUrl, env);
 
         String ssa = buildSignedJwt(header, ssaJson, ssaSigner).serialize();
 
@@ -40,7 +41,8 @@ public class PSD2Utils {
         return ssaRequest;
     }
 
-    private static final net.minidev.json.JSONObject createSoftwareStatement(String tppId, String clientId, String jwksUrl, EnvironmentConfig env) {
+    private static final net.minidev.json.JSONObject createSoftwareStatement(String tppId, String clientId,
+            String clientName, String jwksUrl, EnvironmentConfig env) {
         final var ssaJson = new net.minidev.json.JSONObject();
         ssaJson.put("iss", tppId);
         ssaJson.put("iat", Math.floor(System.currentTimeMillis()/1000));
@@ -50,7 +52,7 @@ public class PSD2Utils {
         ssaJson.put("software_roles", env.getSsaSoftwareRoles());
         ssaJson.put("software_jwks_endpoint", jwksUrl);
         ssaJson.put("software_jwks_revoked_endpoint", jwksUrl);
-        ssaJson.put("software_client_name", clientId);
+        ssaJson.put("software_client_name", clientName);
         ssaJson.put("software_redirect_uris", env.getSsaSoftwareRedirectUris());
         ssaJson.put("software_client_uri", env.getSsaSoftwareClientUri());
         ssaJson.put("org_name", env.getTppCn());
@@ -66,7 +68,7 @@ public class PSD2Utils {
         ssaRequestJson.put("aud", "https://op.fi/");
         ssaRequestJson.put("jti", UUID.randomUUID().toString());
         ssaRequestJson.put("redirect_uris", redirectUris);
-        ssaRequestJson.put("grant_types",  new String[] {"client_credentials", "authorization_code", "refresh_token"});
+        ssaRequestJson.put("grant_types", new String[] { "client_credentials", "authorization_code", "refresh_token" });
         ssaRequestJson.put("software_statement", ssa);
         return ssaRequestJson;
     }
