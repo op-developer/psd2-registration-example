@@ -26,7 +26,7 @@ import static io.restassured.RestAssured.given;
 public class SandboxRegistrator {
 
     private EnvironmentConfig env = new EnvironmentConfig();
-    private String tppId ;
+    private String tppId;
     private String tppApiKey;
     private String registrationRequest;
     private Response response;
@@ -35,14 +35,16 @@ public class SandboxRegistrator {
     RSAPrivateCrtKey tppPrivateCertKey;
     private String keystore;
     private String keystorePassword;
-    private String softwareClient;
+    private String softwareClientId;
+    private String softwareClientName;
     ECPrivateKey ecPrivateKey;
     private String ecPrivateKeyKid;
     private String jwksPublicUrl;
 
     public SandboxRegistrator() {
         this.tppApiKey = env.getTppApiKey();
-        this.softwareClient =  env.getSsaSoftwareClient();
+        this.softwareClientId = env.getSsaSoftwareClientId();
+        this.softwareClientName = env.getSsaSoftwareClientName();
     }
 
     protected void generateKeyMaterial() throws Throwable {
@@ -59,7 +61,8 @@ public class SandboxRegistrator {
     }
 
     private void generateRegistrationRequest() throws Throwable {
-        registrationRequest = PSD2Utils.generateSignedSSAJwt(env, this.tppId, this.softwareClient, this.ecPrivateKey, this.ecPrivateKeyKid, this.jwksPublicUrl);
+        registrationRequest = PSD2Utils.generateSignedSSAJwt(env, this.tppId, this.softwareClientId,
+                this.softwareClientName, this.ecPrivateKey, this.ecPrivateKeyKid, this.jwksPublicUrl);
     }
 
     public void register() throws Throwable {
@@ -115,7 +118,7 @@ public class SandboxRegistrator {
     }
 
     public void extractsKeys() throws Throwable {
-        extractsCertificateAndPrivateKey();
+        extractCertificateAndPrivateKey();
         extractSsaSigningKey();
     }
 
@@ -137,7 +140,7 @@ public class SandboxRegistrator {
         privateKeyWriter.close();
     }
 
-    public void extractsCertificateAndPrivateKey() throws Throwable {
+    public void extractCertificateAndPrivateKey() throws Throwable {
         JSONObject response = new JSONObject(jwkStr);
         JSONObject jwks = response.getJSONObject("privateJwks");
         JSONObject jwk = jwks.getJSONArray("keys").getJSONObject(0);

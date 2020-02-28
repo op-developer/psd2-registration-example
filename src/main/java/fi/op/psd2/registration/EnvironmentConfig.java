@@ -12,7 +12,8 @@ public class EnvironmentConfig {
     public static final String TPP_CLIENT_CERT_GENERATION_URL = "tpp.client.cert.generation.url";
     public static final String SSA_SOFTWARE_REDIRECT_URIS = "tpp.ssa.software.redirect.uris";
     public static final String SSA_SOFTWARE_ROLES = "tpp.ssa.software.roles";
-    public static final String SSA_SOFTWARE_CLIENT = "tpp.ssa.software.client";
+    public static final String SSA_SOFTWARE_CLIENT_NAME = "tpp.ssa.software.client.name";
+    public static final String SSA_SOFTWARE_CLIENT_ID = "tpp.ssa.software.client.id";
     public static final String TPP_API_KEY = "tpp.api.key";
     public static final String TPP_CN = "tpp.cn";
     public static final String SSA_SOFTWARE_CLIENT_URI = "tpp.ssa.software.client.uri";
@@ -42,8 +43,12 @@ public class EnvironmentConfig {
         return getStringProperty(TPP_CLIENT_CERT_GENERATION_URL);
     }
 
-    public String getSsaSoftwareClient() {
-        return getStringProperty(SSA_SOFTWARE_CLIENT);
+    public String getSsaSoftwareClientId() {
+        return getStringProperty(SSA_SOFTWARE_CLIENT_ID);
+    }
+
+    public String getSsaSoftwareClientName() {
+        return getStringProperty(SSA_SOFTWARE_CLIENT_NAME);
     }
 
     public String getTppApiKey() {
