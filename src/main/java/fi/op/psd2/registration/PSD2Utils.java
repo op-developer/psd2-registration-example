@@ -27,12 +27,12 @@ public class PSD2Utils {
         return stringWriter.toString();
     }
 
-    public static String generateSignedSSAJwt(EnvironmentConfig env, String tppId, String clientName,
+    public static String generateSignedSSAJwt(EnvironmentConfig env, String tppId, String clientId, String clientName,
             ECPrivateKey generatedECPrivateKey, String kid, String publicJwksUrl) throws Throwable {
 
         final JWSSigner ssaSigner = new ECDSASigner(generatedECPrivateKey, Curve.P_256);
         JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.ES256).type(JOSEObjectType.JWT).keyID(kid).build();
-        final var ssaJson = createSoftwareStatement(tppId, clientName, publicJwksUrl, env);
+        final var ssaJson = createSoftwareStatement(tppId, clientId, clientName, publicJwksUrl, env);
 
         String ssa = buildSignedJwt(header, ssaJson, ssaSigner).serialize();
 
@@ -52,14 +52,14 @@ public class PSD2Utils {
         return orgContactsArray;
     }
 
-    private static final net.minidev.json.JSONObject createSoftwareStatement(String tppId,
+    private static final net.minidev.json.JSONObject createSoftwareStatement(String tppId, String clientId,
             String clientName, String jwksUrl, EnvironmentConfig env) {
         final var ssaJson = new net.minidev.json.JSONObject();
         ssaJson.put("iss", tppId);
         ssaJson.put("iat", Math.floor(System.currentTimeMillis()/1000));
         ssaJson.put("exp", Math.floor(System.currentTimeMillis()/1000 + 3155692600L));
         ssaJson.put("jti", UUID.randomUUID().toString());
-        ssaJson.put("software_client_id", UUID.randomUUID().toString());
+        ssaJson.put("software_client_id", clientId);
         ssaJson.put("software_roles", env.getSsaSoftwareRoles());
         ssaJson.put("software_jwks_endpoint", jwksUrl);
         ssaJson.put("software_jwks_revoked_endpoint", jwksUrl);

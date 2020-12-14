@@ -35,6 +35,7 @@ public class SandboxRegistrator {
     RSAPrivateCrtKey tppPrivateCertKey;
     private String keystore;
     private String keystorePassword;
+    private String softwareClientId;
     private String softwareClientName;
     ECPrivateKey ecPrivateKey;
     private String ecPrivateKeyKid;
@@ -42,6 +43,7 @@ public class SandboxRegistrator {
 
     public SandboxRegistrator() {
         this.tppApiKey = env.getTppApiKey();
+        this.softwareClientId = env.getSsaSoftwareClientId();
         this.softwareClientName = env.getSsaSoftwareClientName();
     }
 
@@ -59,7 +61,7 @@ public class SandboxRegistrator {
     }
 
     private void generateRegistrationRequest() throws Throwable {
-        registrationRequest = PSD2Utils.generateSignedSSAJwt(env, this.tppId,
+        registrationRequest = PSD2Utils.generateSignedSSAJwt(env, this.tppId, this.softwareClientId,
                 this.softwareClientName, this.ecPrivateKey, this.ecPrivateKeyKid, this.jwksPublicUrl);
     }
 
