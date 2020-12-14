@@ -13,10 +13,11 @@ public class EnvironmentConfig {
     public static final String SSA_SOFTWARE_REDIRECT_URIS = "tpp.ssa.software.redirect.uris";
     public static final String SSA_SOFTWARE_ROLES = "tpp.ssa.software.roles";
     public static final String SSA_SOFTWARE_CLIENT_NAME = "tpp.ssa.software.client.name";
-    public static final String SSA_SOFTWARE_CLIENT_ID = "tpp.ssa.software.client.id";
     public static final String TPP_API_KEY = "tpp.api.key";
     public static final String TPP_CN = "tpp.cn";
     public static final String SSA_SOFTWARE_CLIENT_URI = "tpp.ssa.software.client.uri";
+    public static final String SSA_SOFTWARE_CLIENT_EMAIL = "tpp.ssa.software.client.email";
+    
 
     Properties config = new Properties();
 
@@ -43,10 +44,6 @@ public class EnvironmentConfig {
         return getStringProperty(TPP_CLIENT_CERT_GENERATION_URL);
     }
 
-    public String getSsaSoftwareClientId() {
-        return getStringProperty(SSA_SOFTWARE_CLIENT_ID);
-    }
-
     public String getSsaSoftwareClientName() {
         return getStringProperty(SSA_SOFTWARE_CLIENT_NAME);
     }
@@ -61,6 +58,10 @@ public class EnvironmentConfig {
 
     public String getSsaSoftwareClientUri() {
         return getStringProperty(SSA_SOFTWARE_CLIENT_URI);
+    }
+
+    public String getSsaSoftwareEmail() {
+        return getStringProperty(SSA_SOFTWARE_CLIENT_EMAIL);
     }
 
     public String[] getSsaSoftwareRedirectUris() {
