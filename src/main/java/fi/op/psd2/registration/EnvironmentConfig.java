@@ -45,10 +45,6 @@ public class EnvironmentConfig {
         return getStringProperty(TPP_CLIENT_CERT_GENERATION_URL);
     }
 
-    public String getSsaSoftwareClientId() {
-        return getStringProperty(SSA_SOFTWARE_CLIENT_ID);
-    }
-
     public String getSsaSoftwareClientName() {
         return getStringProperty(SSA_SOFTWARE_CLIENT_NAME);
     }
