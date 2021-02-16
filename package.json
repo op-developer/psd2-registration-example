@@ -1,0 +1,27 @@
+{
+  "name": "psd2-registration-example-ts",
+  "version": "1.0.0",
+  "description": "Typescript example for OP PSD TPP Registration",
+  "main": "index.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "npm run build-ts && npm run tslint",
+    "build-ts": "npm run tsc",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "fixtslint": "tslint --fix -c tslint.json '{src,test}/**/*{.ts,.tsx}'",
+    "prettify": "prettier --write {src,test,mock}/**/*.ts",
+    "register-tpp": "npx ts-node src/index.ts"
+  },
+  "author": "tpp-support@op.fi",
+  "license": "MIT",
+  "dependencies": {
+    "@fidm/x509": "1.2.1",
+    "@types/uuid": "8.3.0",
+    "got": "11.8.1",
+    "jose": "2.0.4",
+    "path": "0.12.7",
+    "uuid": "8.3.2"
+  }
+}
